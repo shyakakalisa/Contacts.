@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .container {
+            background-color: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #cccccc;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Contacts</h1>
+        <p>Select a slot number to find a contact.</p>
+
+        <table>
+            <tr>
+                <th>Slot #</th>
+                <th>Name</th>
+            </tr>
+            <tbody id="contactList"></tbody>
+        </table>
+
+        <button id="searchButton">
+            Search Contacts
+        </button>
+
+        <p id="result"></p>
+    </div>
+
+    <script type="text/javascript">
+
+        // Store the six contact names in an array
+        let contacts = [
+            "Arnold",
+            "Sly",
+            "Dwayne",
+            "Vin",
+            "JCVD",
+            "Steven"
+        ];
+
+        // Display the contacts in the table
+        let i = 0;
+        let rows = "";
+
+        while (i < contacts.length) {
+            rows += "<tr><td>" + i + "</td><td>"
+                + contacts[i] + "</td></tr>";
+            i++;
+        }
+
+        document.getElementById("contactList").innerHTML = rows;
+
+        // Start searching when the button is clicked
+        document.getElementById("searchButton").onclick =
+            function () {
+
+                let searchAgain = "yes";
+
+                while (searchAgain === "yes") {
+
+                    let slot = prompt(
+                        "Enter a slot number between 0 and 5:"
+                    );
+
+                    if (slot === null) {
+                        break;
+                    }
+
+                    let slotNumber = Number(slot);
+
+                    if (
+                        slot.trim() !== "" &&
+                        Number.isInteger(slotNumber) &&
+                        slotNumber >= 0 &&
+                        slotNumber < contacts.length
+                    ) {
+                        let message = "You selected "
+                            + contacts[slotNumber] + ".";
+
+                        alert(message);
+
+                        document.getElementById("result").innerHTML =
+                            message;
+
+                    } else {
+                        alert(
+                            "Name not found. Please try again."
+                        );
+                    }
+
+                    searchAgain = prompt(
+                        "Would you like to search for another name? (yes/no)"
+                    );
+
+                    if (searchAgain === null) {
+                        break;
+                    }
+
+                    searchAgain = searchAgain.toLowerCase();
+                }
+            };
+
+    </script>
+
+</body>
+</html>
